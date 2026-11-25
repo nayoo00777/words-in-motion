@@ -1,0 +1,51 @@
+@import "tailwindcss";
+:root { font-family: Inter, 'Segoe UI', sans-serif; color: #d5f7f9; background: #010709; color-scheme: dark; }
+* { box-sizing: border-box; }
+body { margin: 0; }
+button, input { font: inherit; }
+button { cursor: pointer; }
+.installation { width: 100%; height: 100dvh; min-height: 460px; overflow: hidden; position: relative; }
+.vignette { position: absolute; inset: 0; pointer-events: none; background: radial-gradient(ellipse at 50% 45%, transparent 30%, #0008 100%); }
+.masthead { position: absolute; top: 38px; left: 44px; right: 44px; display: flex; justify-content: space-between; align-items: flex-start; }
+.eyebrow { color: #6c9ba3; font-size: 9px; letter-spacing: .26em; margin: 0 0 13px; }
+h1 { margin: 0; font-size: 24px; font-weight: 300; letter-spacing: .12em; }
+h1 span { display: block; font-size: 9px; letter-spacing: .5em; color: #60868e; margin-top: 10px; }
+.quiet-button { border: 1px solid #88dbe325; background: #06111680; border-radius: 20px; color: #a0bdc2; padding: 9px 17px; font-size: 11px; }
+.scene-caption { position: absolute; left: 44px; bottom: 205px; font-size: 9px; letter-spacing: .16em; color: #71949d; display: flex; align-items: center; gap: 9px; }
+.live-dot { width: 5px; height: 5px; border-radius: 50%; background: #48636a; }
+.live-dot.active { background: #77fff5; box-shadow: 0 0 12px #49ffec; }
+.control-panel { position: absolute; bottom: 30px; left: 44px; right: 44px; max-width: 1050px; margin: auto; padding: 23px 26px 17px; border: 1px solid #75c3d020; border-radius: 15px; background: #051015b8; backdrop-filter: blur(22px); display: grid; grid-template-columns: 1.2fr 1fr 1fr 1fr; gap: 22px; }
+.mic-button { width: 100%; border: 1px solid #7be5ed50; border-radius: 7px; padding: 10px 12px; background: #16434b65; color: #b4f8f5; font-size: 12px; }
+.mic-button span { padding-right: 10px; }
+.mic-button.listening { background: #245a5960; border-color: #82ffe3; }
+.level-track { margin-top: 10px; height: 2px; background: #ffffff10; overflow: hidden; }
+.level-track div { width: 100%; height: 100%; background: #71f9eb; transform: scaleX(0); transform-origin: left; }
+.setting { display: block; font-size: 11px; color: #93b1ba; padding-top: 4px; }
+.setting output { float: right; font-size: 10px; color: #587781; }
+.setting input { display: block; width: 100%; height: 3px; margin-top: 22px; accent-color: #8fe7e7; cursor: pointer; }
+.mic-status { grid-column: 1 / -1; margin: 0; font-size: 10px; color: #8aafb5; line-height: 1.8; }
+.mic-status span { float: right; color: #4c707b; }
+button:hover { border-color: #b0faff; }
+button:focus-visible, input:focus-visible { outline: 2px solid #94fff0; outline-offset: 5px; }
+@media (max-width: 650px) {
+ .masthead { top: 24px; left: 22px; right: 22px; } h1 { font-size: 20px; } .eyebrow { font-size: 7px; }
+ .control-panel { bottom: 18px; left: 18px; right: 18px; padding: 18px; grid-template-columns: 1fr 1fr; gap: 17px; }
+ .scene-caption { left: 24px; bottom: 258px; font-size: 8px; }
+ .mic-status span { display: block; float: none; }
+}
+.jelly-canvas { display: block; width: 100%; height: 100%; }
+
+.paper-installation { color: #292722; background: #eeece7; color-scheme: light; }
+.paper-installation .eyebrow, .paper-installation h1 span { color: #827b6e; }
+.paper-installation .quiet-button { color: #504a40; border-color: #bcb6a9; background: #f8f6f1ed; }
+.paper-installation .control-panel { background: #f8f6f1ed; border-color: #c8c1b5; box-shadow: 0 8px 30px #332c1510; }
+.paper-installation .mic-button { background: #e6e2d9; color: #302e28; border-color: #a69d8d; }
+.paper-installation .mic-button.listening { background: #dfe5da; border-color: #627156; }
+.paper-installation .setting, .paper-installation .mic-status { color: #5a5449; }
+.paper-installation .setting output, .paper-installation .mic-status span { color: #837a6b; }
+.paper-installation .setting input { accent-color: #574f40; }
+.paper-installation .level-track { background: #d8d3c7; }
+.paper-installation .level-track div { background: #525e43; }
+.paper-installation .scene-caption { background: #f8f6f1ed; color: #625b4e; padding: 8px 12px; border-radius: 4px; }
+.paper-installation .live-dot.active { background: #5e7853; box-shadow: 0 0 8px #5e785350; }
+.paper-installation button:focus-visible, .paper-installation input:focus-visible { outline-color: #655536; }
