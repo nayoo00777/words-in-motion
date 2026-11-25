@@ -49,3 +49,10 @@ button:focus-visible, input:focus-visible { outline: 2px solid #94fff0; outline-
 .paper-installation .scene-caption { background: #f8f6f1ed; color: #625b4e; padding: 8px 12px; border-radius: 4px; }
 .paper-installation .live-dot.active { background: #5e7853; box-shadow: 0 0 8px #5e785350; }
 .paper-installation button:focus-visible, .paper-installation input:focus-visible { outline-color: #655536; }
+.paper-installation { min-height: 0; height: 100dvh; }
+.art-toolbar { position: absolute; top: 16px; right: 16px; display: flex; gap: 7px; opacity: .72; transition: opacity .2s; }
+.art-toolbar:hover, .art-toolbar:focus-within { opacity: 1; }
+.art-toolbar .quiet-button { backdrop-filter: blur(8px); }
+.art-message { position: absolute; left: 16px; bottom: 12px; max-width: calc(100% - 32px); padding: 5px 9px; border-radius: 4px; background: #f8f6f1d9; color: #625b4e; font-size: 11px; pointer-events: none; }
+.art-message:empty { display: none; }
+@media (max-width: 650px) { .art-toolbar { top: 10px; right: 10px; gap: 4px; } .art-toolbar .quiet-button { padding: 8px 11px; } }

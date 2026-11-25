@@ -1,5 +1,5 @@
 /** @license SPDX-License-Identifier: Apache-2.0 */
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { TypeField } from './TypeField';
 
 
@@ -11,7 +11,23 @@ export default function App() {
   const [sensitivity, setSensitivity] = useState(2);
   const [speed, setSpeed] = useState(0.8);
   const [glow, setGlow] = useState(1.1);
-  const [controls, setControls] = useState(true);
+  const [controls, setControls] = useState(false);
+  const [fullscreen, setFullscreen] = useState(false);
+  const [screenMessage, setScreenMessage] = useState('');
+  useEffect(() => {
+    const sync = () => setFullscreen(Boolean(document.fullscreenElement));
+    document.addEventListener('fullscreenchange', sync);
+    return () => document.removeEventListener('fullscreenchange', sync);
+  }, []);
+  async function toggleFullscreen() {
+    try {
+      if (document.fullscreenElement) await document.exitFullscreen();
+      else if (document.documentElement.requestFullscreen) {
+        await document.documentElement.requestFullscreen();
+        setControls(false);
+      } else setScreenMessage('이 브라우저에서는 F11 키로 전체 화면을 열어 주세요.');
+    } catch { setScreenMessage('전체 화면을 열지 못했습니다. F11 키를 눌러 주세요.'); }
+  }
   const meter = useRef<HTMLDivElement>(null);
   const listening = mic.status === 'on';
   return <main className="installation paper-installation">
@@ -20,11 +36,12 @@ export default function App() {
       if (meter.current) meter.current.style.transform = `scaleX(${mic.levels.current.level})`;
     }} />
 
-    <header className="masthead">
-      <div><p className="eyebrow">MOVABLE TYPE / SOUND REACTIVE</p><h1>소리의 활자<span>WORDS IN MOTION</span></h1></div>
-      <button className="quiet-button" onClick={() => setControls(!controls)} aria-expanded={controls} aria-controls="sound-controls">{controls ? '설정 숨기기' : '설정 열기'}</button>
-    </header>
-    <div className="scene-caption"><span className={listening ? 'live-dot active' : 'live-dot'} />{listening ? 'LIVE AUDIO · 소리에 반응하는 활자' : 'AMBIENT · 천천히 흐르는 글자들'}</div>
+    <nav className="art-toolbar" aria-label="작품 조작">
+      <button className="quiet-button" onClick={listening || mic.status === 'requesting' ? mic.stop : mic.start}>{listening ? '마이크 끄기' : mic.status === 'requesting' ? '요청 취소' : '마이크 켜기'}</button>
+      <button className="quiet-button" onClick={toggleFullscreen}>{fullscreen ? '전체 화면 종료' : '전체 화면'}</button>
+      <button className="quiet-button" onClick={() => setControls(!controls)} aria-expanded={controls} aria-controls="sound-controls">{controls ? '설정 숨기기' : '설정'}</button>
+    </nav>
+    <div className="art-message" role="status">{screenMessage || (!listening ? mic.message : '')}</div>
     {controls && <section id="sound-controls" className="control-panel" aria-label="활자 설정">
       <div className="microphone-control">
         <button className={'mic-button ' + (listening ? 'listening' : '')} aria-pressed={listening}
@@ -40,6 +57,7 @@ export default function App() {
     </section>}
   </main>;
 }
+
 
 
 
